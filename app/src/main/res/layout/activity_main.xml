@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.lixin.main.MainActivity"
+    android:orientation="vertical"
+    android:background="@color/bg_grey">
+    <com.lixin.widget.LiveNaviBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/mainac_navibar"></com.lixin.widget.LiveNaviBar>
+
+    <GridView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:verticalSpacing="0.5dp"
+        android:horizontalSpacing="0.5dp"
+        android:numColumns="2"
+        android:background="@color/line_bg_grey"
+        android:id="@+id/mainac_gridview">
+
+    </GridView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/line_bg_grey"></View>
+</LinearLayout>

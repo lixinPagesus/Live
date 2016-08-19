@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bg_grey"
+    android:id="@+id/topRelativeLayout"
+    android:paddingTop="4dp"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvNavLeft"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="10dp"
+        android:gravity="center"
+        android:layout_centerVertical="true"
+
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/tvNavTitle"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="11dp"
+        android:ellipsize="end"
+        android:ems="11"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvNavRight"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:layout_marginRight="10dp"
+        android:layout_centerVertical="true"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/line_bg_grey"
+        android:layout_below="@id/tvNavTitle"
+        android:id="@+id/topnavi_line"
+        ></View>
+
+</RelativeLayout>

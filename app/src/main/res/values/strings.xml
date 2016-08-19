@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Live</string>
+
+    <string name="enter_phone_number">请输入手机号码</string>
+    <string name="search">查询</string>
+    <string name="mobile_api_title_province">省份</string>
+    <string name="mobile_api_title_city">城市</string>
+    <string name="mobile_api_title_cityCode">城市区号</string>
+    <string name="mobile_api_title_mobileNumber">手机号前7位</string>
+    <string name="mobile_api_title_zipCode">邮编</string>
+    <string name="mobile_api_title_operator">运营商信息</string>
+
+    <string name="idcard_api_title_area">所属地区</string>
+    <string name="idcard_api_title_birthday">生日</string>
+    <string name="idcard_api_title_sex">性别</string>
+    <string name="enter_id_card_number">请输入身份证号码</string>
+
+</resources>
