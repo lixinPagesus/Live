@@ -4,10 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
+import com.lixin.cook.CookActivity;
 import com.lixin.idcard.IDCardActivity;
 import com.lixin.mvp.BasePresenter;
 import com.lixin.phone.PhoneActivity;
-import com.lixin.utils.LogUtil;
 
 /**
  * Created by lixin on 16/8/12.
@@ -17,11 +17,11 @@ public class MainPresenter extends BasePresenter<MainView> {
     private final String PHONE = "手机号码查询";
     private final String CARD = "身份证查询";
     private final String WEATHER = "天气预报";
-    private final String CATEGORY = "菜谱大全";
+    private final String COOK = "菜谱大全";
     private final String FLIGHT = "航班信息查询";
     private final String CAR = "汽车信息查询";
 
-    private String[] tags = {PHONE,CARD,WEATHER,CATEGORY,FLIGHT,CAR};
+    private String[] tags = {PHONE,CARD,WEATHER, COOK,FLIGHT,CAR};
 
     public MainPresenter(MainView view) {
         attachView(view);
@@ -45,8 +45,8 @@ public class MainPresenter extends BasePresenter<MainView> {
             case WEATHER:
                 Toast.makeText(context,"不想开发了",Toast.LENGTH_SHORT).show();
                 break;
-            case CATEGORY:
-                Toast.makeText(context,"不想开发了",Toast.LENGTH_SHORT).show();
+            case COOK:
+                intent = new Intent(context, CookActivity.class);
                 break;
             case FLIGHT:
                 Toast.makeText(context,"不想开发了",Toast.LENGTH_SHORT).show();

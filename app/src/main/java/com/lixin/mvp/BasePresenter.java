@@ -3,6 +3,7 @@ package com.lixin.mvp;
 import com.lixin.http.ApiStores;
 import com.lixin.http.AppClient;
 import com.lixin.mvp.Presenter;
+import com.lixin.utils.ConstantLive;
 
 import rx.Observable;
 import rx.Subscriber;
@@ -18,7 +19,7 @@ public class BasePresenter<V> implements Presenter<V> {
     public V mvpView;
     public ApiStores apiStores = AppClient.retrofit().create(ApiStores.class);
     private CompositeSubscription mCompositeSubscription;
-
+    public String sharesdkKey = ConstantLive.APPKEY;
     @Override
     public void attachView(V mvpView) {
         this.mvpView = mvpView;
@@ -49,5 +50,6 @@ public class BasePresenter<V> implements Presenter<V> {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber));
+
     }
 }
