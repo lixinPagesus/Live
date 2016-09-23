@@ -9,10 +9,12 @@ import android.widget.TextView;
 
 import com.lixin.live.R;
 import com.lixin.mvp.MvpActivity;
-import com.lixin.utils.LogUtil;
+import com.lixin.widget.LiveNaviBar;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,6 +33,8 @@ public class CookActivity extends MvpActivity<CookPresenter> implements CookView
 
     CategoryAdapter1 categoryAdapter1;
     CategoryAdapter2 categoryAdapter2;
+    @BindView(R.id.cook_navibar)
+    LiveNaviBar cookNavibar;
     private List<CookCategoryBean.ResultBean.ChildsBean> childsBeanList1 = new ArrayList<>();
     private List<CookCategoryBean.ResultBean.ChildsBean.ChildsBean2> childsBeanList2 = new ArrayList<>();
 
@@ -40,19 +44,37 @@ public class CookActivity extends MvpActivity<CookPresenter> implements CookView
         setContentView(R.layout.activity_cook);
         ButterKnife.bind(this);
         initUI();
+        initNaviBar();
         mvpPresenter.getCookCategory();
     }
 
+    private void initNaviBar() {
+        cookNavibar.setNaviTitle("菜谱");
+        cookNavibar.setLeftBtnImage(R.mipmap.ic_back);
+        cookNavibar.setNaviOnClickedListener(new LiveNaviBar.NaviBarClickedListener() {
+            @Override
+            public void onClickedLeftBtn() {
+                finish();
+            }
+
+            @Override
+            public void onClickedRightBtn() {
+
+            }
+        });
+    }
+
+
     private void initUI() {
 
-        categoryAdapter1 = new CategoryAdapter1(childsBeanList1,CookActivity.this);
+        categoryAdapter1 = new CategoryAdapter1(childsBeanList1, CookActivity.this);
         spinnerCategory1.setAdapter(categoryAdapter1);
-        spinnerCategory1.setOnItemClickListener(new myOnItemClickListener1());
+        spinnerCategory1.setOnItemSelectedListener(new myOnItemSelectedListener1());
 
+        categoryAdapter2 = new CategoryAdapter2(childsBeanList2, CookActivity.this);
+        spinnerCategory2.setAdapter(categoryAdapter2);
+        spinnerCategory2.setOnItemSelectedListener(new myOnItemSelectedListener2());
 
-        categoryAdapter2 = new CategoryAdapter2(childsBeanList2,CookActivity.this);
-        spinnerCategory2.setAdapter(categoryAdapter1);
-        spinnerCategory2.setOnItemClickListener(new myOnItemClickListener2());
     }
 
     @Override
@@ -66,29 +88,56 @@ public class CookActivity extends MvpActivity<CookPresenter> implements CookView
 
             childsBeanList1 = model.getResult().getChilds();
             childsBeanList2 = model.getResult().getChilds().get(0).getChilds();
+            categoryAdapter1.replaceData(model.getResult().getChilds());
+            categoryAdapter2.replaceData(model.getResult().getChilds().get(0).getChilds());
             categoryAdapter1.notifyDataSetChanged();
             categoryAdapter2.notifyDataSetChanged();
 
 
+        }
+    }
 
+    private class myOnItemSelectedListener1 implements AdapterView.OnItemSelectedListener {
+
+
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+            categoryAdapter2.replaceData(childsBeanList1.get(position).getChilds());
+            categoryAdapter2.notifyDataSetChanged();
+            if(spinnerCategory2.getCount() > 0) {
+                spinnerCategory2.setSelection(0);
+            }
+
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
 
         }
     }
 
-    private class myOnItemClickListener1 implements AdapterView.OnItemClickListener {
+
+    private class myOnItemSelectedListener2 implements AdapterView.OnItemSelectedListener {
+
 
         @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            getCookList(position);
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
 
         }
     }
 
-    private class myOnItemClickListener2 implements AdapterView.OnItemClickListener {
+    private void getCookList(int position) {
+        Map<String,String> params = new HashMap<>();
 
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//        params.put("",)
 
-        }
+
     }
 
 

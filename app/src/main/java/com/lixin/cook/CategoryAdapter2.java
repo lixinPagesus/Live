@@ -70,4 +70,8 @@ public class CategoryAdapter2 extends BaseAdapter {
             ButterKnife.bind(this, view);
         }
     }
+
+    public void replaceData(List<CookCategoryBean.ResultBean.ChildsBean.ChildsBean2> childsBeanList){
+        this.childsBeanList = childsBeanList;
+    }
 }
