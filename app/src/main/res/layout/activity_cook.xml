@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.lixin.widget.LiveNaviBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cook_navibar"></com.lixin.widget.LiveNaviBar>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+        <TextView
+            android:text="选择分类:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView"
+            android:textStyle="normal|bold"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp" />
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner1"
+            android:layout_marginLeft="20dp"
+            android:layout_gravity="center_vertical"
+            android:minWidth="120dp"
+            android:gravity="center"/>
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner2"
+            android:layout_marginLeft="20dp"
+            android:layout_gravity="center_vertical"
+            android:minWidth="120dp"
+            android:gravity="center"/>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/line_bg_grey"></View>
+
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/listview1"
+            />
+
+</LinearLayout>
