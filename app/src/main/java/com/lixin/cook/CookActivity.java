@@ -9,7 +9,10 @@ import android.widget.TextView;
 
 import com.lixin.live.R;
 import com.lixin.mvp.MvpActivity;
+import com.lixin.utils.ConstantLive;
+import com.lixin.utils.LogUtil;
 import com.lixin.widget.LiveNaviBar;
+import com.lixin.widget.XListView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,7 +22,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class CookActivity extends MvpActivity<CookPresenter> implements CookView {
+public class CookActivity extends MvpActivity<CookPresenter> implements CookView, XListView.IXListViewListener {
 
 
     @BindView(R.id.textView)
@@ -29,7 +32,7 @@ public class CookActivity extends MvpActivity<CookPresenter> implements CookView
     @BindView(R.id.spinner2)
     Spinner spinnerCategory2;
     @BindView(R.id.listview1)
-    ListView listview1;
+    XListView listview1;
 
     CategoryAdapter1 categoryAdapter1;
     CategoryAdapter2 categoryAdapter2;
@@ -37,7 +40,8 @@ public class CookActivity extends MvpActivity<CookPresenter> implements CookView
     LiveNaviBar cookNavibar;
     private List<CookCategoryBean.ResultBean.ChildsBean> childsBeanList1 = new ArrayList<>();
     private List<CookCategoryBean.ResultBean.ChildsBean.ChildsBean2> childsBeanList2 = new ArrayList<>();
-
+    private int currentPage = 1;
+    private int maxPage = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +79,11 @@ public class CookActivity extends MvpActivity<CookPresenter> implements CookView
         spinnerCategory2.setAdapter(categoryAdapter2);
         spinnerCategory2.setOnItemSelectedListener(new myOnItemSelectedListener2());
 
+        listview1.setXListViewListener(this);
+        listview1.setPullRefreshEnable(true);
+        listview1.setPullLoadEnable(true);
+
+
     }
 
     @Override
@@ -85,11 +94,13 @@ public class CookActivity extends MvpActivity<CookPresenter> implements CookView
     @Override
     public void getCookCategorySuccess(CookCategoryBean model) {
         if (model != null) {
+//            currentPage = model.getResult().get
+
 
             childsBeanList1 = model.getResult().getChilds();
             childsBeanList2 = model.getResult().getChilds().get(0).getChilds();
-            categoryAdapter1.replaceData(model.getResult().getChilds());
-            categoryAdapter2.replaceData(model.getResult().getChilds().get(0).getChilds());
+            categoryAdapter1.replaceData(childsBeanList1);
+            categoryAdapter2.replaceData(childsBeanList2);
             categoryAdapter1.notifyDataSetChanged();
             categoryAdapter2.notifyDataSetChanged();
 
@@ -97,13 +108,23 @@ public class CookActivity extends MvpActivity<CookPresenter> implements CookView
         }
     }
 
+    @Override
+    public void onXListViewRefresh() {
+
+    }
+
+    @Override
+    public void onXListViewLoadMore() {
+
+    }
+
     private class myOnItemSelectedListener1 implements AdapterView.OnItemSelectedListener {
 
 
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-            categoryAdapter2.replaceData(childsBeanList1.get(position).getChilds());
+            childsBeanList2 = childsBeanList1.get(position).getChilds();
+            categoryAdapter2.replaceData(childsBeanList2);
             categoryAdapter2.notifyDataSetChanged();
             if(spinnerCategory2.getCount() > 0) {
                 spinnerCategory2.setSelection(0);
@@ -135,7 +156,12 @@ public class CookActivity extends MvpActivity<CookPresenter> implements CookView
     private void getCookList(int position) {
         Map<String,String> params = new HashMap<>();
 
-//        params.put("",)
+        params.put("key", ConstantLive.APPKEY);
+        params.put("cid",childsBeanList2.get(position).getCategoryInfo().getCtgId());
+//        params.put("name",childsBeanList2.get(position).getCategoryInfo().getName()); 用于搜索
+        params.put("page",String.valueOf(currentPage));
+
+        mvpPresenter.getCookList(params);
 
 
     }
@@ -143,7 +169,9 @@ public class CookActivity extends MvpActivity<CookPresenter> implements CookView
 
     @Override
     public void getCookListSuccess(CookListBean model) {
-
+        if(model != null){
+            LogUtil.log("getCookListSuccess", model.getResult().getTotal());
+        }
     }
 
     @Override
