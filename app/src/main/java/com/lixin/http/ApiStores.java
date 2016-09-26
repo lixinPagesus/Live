@@ -32,4 +32,6 @@ public interface ApiStores {
     @GET("v1/cook/menu/search")
     Observable<CookListBean> loadCookList(@QueryMap Map<String,String> params);
 
+
+
 }

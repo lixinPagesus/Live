@@ -33,7 +33,8 @@
         <activity android:name="com.lixin.BaseActivity" />
         <activity android:name="com.lixin.phone.PhoneActivity" />
         <activity android:name="com.lixin.idcard.IDCardActivity" />
-        <activity android:name="com.lixin.cook.CookActivity"></activity>
+        <activity android:name="com.lixin.cook.CookActivity" />
+        <activity android:name="com.lixin.cook.CookDetailActivity"></activity>
     </application>
 
 </manifest>
