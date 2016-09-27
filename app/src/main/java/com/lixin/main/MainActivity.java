@@ -8,6 +8,7 @@ import android.widget.GridView;
 import com.lixin.adapter.MainAcGridviewAdapter;
 import com.lixin.live.R;
 import com.lixin.mvp.MvpActivity;
+import com.lixin.utils.LogUtil;
 import com.lixin.widget.LiveNaviBar;
 
 import butterknife.BindView;
@@ -26,6 +27,7 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainView
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        LogUtil.log("MainActivity","onCreate");
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 

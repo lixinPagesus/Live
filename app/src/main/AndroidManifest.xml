@@ -23,18 +23,24 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.lixin.main.MainActivity">
+        <activity android:name="com.lixin.main.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.lixin.BaseActivity" />
-        <activity android:name="com.lixin.phone.PhoneActivity" />
-        <activity android:name="com.lixin.idcard.IDCardActivity" />
-        <activity android:name="com.lixin.cook.CookActivity" />
-        <activity android:name="com.lixin.cook.CookDetailActivity"></activity>
+        <activity android:name="com.lixin.BaseActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name="com.lixin.phone.PhoneActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name="com.lixin.idcard.IDCardActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name="com.lixin.cook.CookActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name="com.lixin.cook.CookDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
