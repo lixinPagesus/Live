@@ -65,7 +65,7 @@
                     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                     android:titleTextColor="@color/text_grey"
                     app:titleTextColor="@color/text_grey"
-
+                    app:layout_scrollFlags="scroll|enterAlways"
                  />
 
 

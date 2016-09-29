@@ -40,7 +40,8 @@ public class CookDetailActivity extends BaseActivity implements AppBarLayout.OnO
 
     private void initUI() {
 
-        collapsingToolbar.setTitleEnabled(false);
+//        collapsingToolbar.setTitleEnabled(false);
+        collapsingToolbar.setTitle("菜单详情");
         appBarLayout = (AppBarLayout) findViewById(R.id.appBarLayout);
         appBarLayout.addOnOffsetChangedListener(this);
 
@@ -61,7 +62,6 @@ public class CookDetailActivity extends BaseActivity implements AppBarLayout.OnO
 
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-//        mSwipeRefreshLayout.setEnabled(i == 0);
         float alpha = (float) Math.abs(verticalOffset) / (float) appBarLayout.getTotalScrollRange() * 1.0f;
         toolbar.setAlpha(alpha);
     }
