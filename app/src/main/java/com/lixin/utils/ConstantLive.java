@@ -5,4 +5,5 @@ package com.lixin.utils;
  */
 public class ConstantLive {
     public static final String APPKEY = "1529e74a7c0e0";
+    public static int NaviBarHeight = 1;
 }

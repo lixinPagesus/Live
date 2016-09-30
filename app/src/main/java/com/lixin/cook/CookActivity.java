@@ -15,6 +15,7 @@ import com.lixin.utils.LogUtil;
 import com.lixin.widget.LiveNaviBar;
 import com.lixin.widget.XListView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -145,6 +146,9 @@ public class CookActivity extends MvpActivity<CookPresenter> implements CookView
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent inent = new Intent(CookActivity.this,CookDetailActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("bean", (CookListBean.ResultBean.ListBean) cooklistAdapeter.getItem(position-1));
+        inent.putExtras(bundle);
         startActivity(inent);
     }
 

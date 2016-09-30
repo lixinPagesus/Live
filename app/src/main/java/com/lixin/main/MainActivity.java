@@ -1,6 +1,7 @@
 package com.lixin.main;
 
 import android.os.Bundle;
+import android.os.HandlerThread;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -13,6 +14,8 @@ import com.lixin.widget.LiveNaviBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.lixin.utils.ConstantLive.NaviBarHeight;
 
 public class MainActivity extends MvpActivity<MainPresenter> implements MainView, AdapterView.OnItemClickListener {
 
@@ -27,9 +30,17 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainView
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LogUtil.log("MainActivity","onCreate");
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        mainacNavibar.post(new Runnable() {
+            @Override
+            public void run() {
+                NaviBarHeight = mainacNavibar.getHeight();
+                LogUtil.log("MainActivity mainacNavibar.getHeight()",NaviBarHeight);
+            }
+        });
+
 
         initView();
     }

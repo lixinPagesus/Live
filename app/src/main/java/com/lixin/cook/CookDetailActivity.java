@@ -3,12 +3,13 @@ package com.lixin.cook;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
+import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.lixin.BaseActivity;
 import com.lixin.live.R;
-import com.lixin.utils.Utils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,44 +27,60 @@ public class CookDetailActivity extends BaseActivity implements AppBarLayout.OnO
     @BindView(R.id.ac_cook_image)
     SimpleDraweeView acCookImage;
 
+    CookListBean.ResultBean.ListBean bean;
+    @BindView(R.id.cook_sumary)
+    TextView cookSumary;
+    @BindView(R.id.cook_title)
+    TextView cookTitle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cook_detail);
         ButterKnife.bind(this);
-
+        getIntentData();
         initUI();
 
-        acCookImage.setImageURI("http://img3.imgtn.bdimg.com/it/u=1819305524,3742145549&fm=21&gp=0.jpg");
+    }
+
+    private void getIntentData() {
+        bean = (CookListBean.ResultBean.ListBean) getIntent().getSerializableExtra("bean");
+
     }
 
 
     private void initUI() {
 
-//        collapsingToolbar.setTitleEnabled(false);
-        collapsingToolbar.setTitle("菜单详情");
-        appBarLayout = (AppBarLayout) findViewById(R.id.appBarLayout);
+        if (bean != null) {
+            acCookImage.setImageURI(bean.getThumbnail());
+            collapsingToolbar.setTitle(bean.getName());
+            toolbar.setTitle(bean.getName());
+
+            cookSumary.setText(bean.getRecipe().getSumary());
+            cookTitle.setText(bean.getRecipe().getTitle());
+        }
+        toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.text_grey));
+        toolbar.setSubtitleTextColor(ContextCompat.getColor(this, R.color.text_grey));
+        collapsingToolbar.setCollapsedTitleTextColor(ContextCompat.getColor(this, R.color.text_grey));
+//        collapsingToolbar.setExpandedTitleColor(ContextCompat.getColor(this,R.color.text_grey));
         appBarLayout.addOnOffsetChangedListener(this);
 
-
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-
         //set the toolbar
-        int toolbar_hight = Utils.getToolbarHeight(this);
+//        CollapsingToolbarLayout.LayoutParams params = (CollapsingToolbarLayout.LayoutParams) toolbar.getLayoutParams();
+//        params.gravity = Gravity.TOP;
+//        params.bottomMargin = 10;
+//        params.height = ConstantLive.NaviBarHeight;
+//        toolbar.setLayoutParams(params);
 
-        CollapsingToolbarLayout.LayoutParams params = (CollapsingToolbarLayout.LayoutParams) toolbar.getLayoutParams();
-        params.height = toolbar_hight;
-        toolbar.setLayoutParams(params);
 
-        setUpCommonBackTooblBar(R.id.toolbar, "菜单详情");
-
+        setUpCommonBackTooblBar(R.id.toolbar, "");
 
     }
 
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-        float alpha = (float) Math.abs(verticalOffset) / (float) appBarLayout.getTotalScrollRange() * 1.0f;
-        toolbar.setAlpha(alpha);
+//        float alpha = (float) Math.abs(verticalOffset) / (float) appBarLayout.getTotalScrollRange() * 1.0f;
+//        toolbar.setAlpha(alpha);
     }
 
     @Override

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:background="@color/bg_grey">
 
 
@@ -14,10 +14,36 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="content"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp" android:background="@color/line_bg_grey"></View>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:id="@+id/cook_sumary"
+                android:textSize="16sp"
+                android:padding="10dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_grey"
+                android:id="@+id/cook_title"
+                android:textSize="14sp"
+                android:padding="10dp"/>
+
+
+
+
+
+        </LinearLayout>
+
     </android.support.v4.widget.NestedScrollView>
 
 
@@ -26,55 +52,58 @@
 
 
 
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/appBarLayout"
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapse_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+            app:contentScrim="@color/bg_grey"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:expandedTitleMarginStart="10dp"
+            android:background="@color/bg_grey"
+            app:collapsedTitleGravity="center_vertical"
+            >
 
-            <android.support.design.widget.CollapsingToolbarLayout
-                android:id="@+id/collapse_toolbar"
+            <com.facebook.drawee.view.SimpleDraweeView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
                 android:fitsSystemWindows="true"
-                app:contentScrim="@color/bg_grey"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed"
-
-                android:background="@color/bg_grey"
-                >
-
-                <com.facebook.drawee.view.SimpleDraweeView
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:fitsSystemWindows="true"
-                    android:id="@+id/ac_cook_image"
-                    android:scaleType="centerCrop"
-                    android:background="@mipmap/ic_launcher"
-                    app:layout_collapseMode="parallax"
-                    app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
-                    />
+                android:id="@+id/ac_cook_image"
+                android:scaleType="centerCrop"
+                android:background="@mipmap/ic_launcher"
+                app:layout_collapseMode="parallax"
+                app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
+                />
 
 
 
-                <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    app:layout_collapseMode="pin"
-                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                    android:titleTextColor="@color/text_grey"
-                    app:titleTextColor="@color/text_grey"
-                    app:layout_scrollFlags="scroll|enterAlways"
-                 />
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                android:titleTextColor="@color/text_grey"
+                app:titleTextColor="@color/text_grey"
+                app:titleMarginStart="10dp"
+                android:gravity="center_vertical"
+
+                />
 
 
 
-            </android.support.design.widget.CollapsingToolbarLayout>
+        </android.support.design.widget.CollapsingToolbarLayout>
 
 
 
-        </android.support.design.widget.AppBarLayout>
+    </android.support.design.widget.AppBarLayout>
 
 
 

@@ -1,5 +1,6 @@
 package com.lixin.cook;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -78,7 +79,7 @@ public class CookListBean {
             this.list = list;
         }
 
-        public static class ListBean {
+        public static class ListBean implements Serializable {
             private String ctgTitles;
             private String menuId;
             private String name;
@@ -142,7 +143,7 @@ public class CookListBean {
                 this.ctgIds = ctgIds;
             }
 
-            public static class RecipeBean {
+            public static class RecipeBean implements Serializable{
                 private String img;
                 private String ingredients;
                 private String method;
