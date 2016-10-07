@@ -9,6 +9,64 @@
     android:background="@color/bg_grey">
 
 
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapse_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            app:contentScrim="@color/bg_grey"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:expandedTitleMarginStart="10dp"
+            android:background="@color/bg_grey"
+            app:collapsedTitleGravity="center_vertical"
+            >
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:fitsSystemWindows="true"
+                android:id="@+id/ac_cook_image"
+                android:scaleType="centerCrop"
+                android:background="@color/black"
+                app:layout_collapseMode="parallax"
+                app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
+                />
+
+
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                android:titleTextColor="@color/text_grey"
+                app:titleTextColor="@color/text_grey"
+                app:titleMarginStart="10dp"
+                android:gravity="center_vertical"
+
+                />
+
+
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+
+
+    </android.support.design.widget.AppBarLayout>
+
+
+
+
+
+
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -39,72 +97,53 @@
                 android:padding="10dp"/>
 
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:id="@+id/cook_ingredients_title"
+                android:text="材料:"
+                android:textSize="14sp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"/>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_grey"
+                android:id="@+id/cook_ingredients"
+                android:textSize="14sp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:id="@+id/cook_method_title"
+                android:text="做法:"
+                android:textSize="14sp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/cook_method_recyclerview"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+
+                    android:layout_marginBottom="20dp"
+                    >
+
+                </android.support.v7.widget.RecyclerView>
 
 
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
-
-
-
-
-
-
-
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appBarLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/collapse_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fitsSystemWindows="true"
-            app:contentScrim="@color/bg_grey"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:expandedTitleMarginStart="10dp"
-            android:background="@color/bg_grey"
-            app:collapsedTitleGravity="center_vertical"
-            >
-
-            <com.facebook.drawee.view.SimpleDraweeView
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:fitsSystemWindows="true"
-                android:id="@+id/ac_cook_image"
-                android:scaleType="centerCrop"
-                android:background="@mipmap/ic_launcher"
-                app:layout_collapseMode="parallax"
-                app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
-                />
-
-
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                android:titleTextColor="@color/text_grey"
-                app:titleTextColor="@color/text_grey"
-                app:titleMarginStart="10dp"
-                android:gravity="center_vertical"
-
-                />
-
-
-
-        </android.support.design.widget.CollapsingToolbarLayout>
-
-
-
-    </android.support.design.widget.AppBarLayout>
-
 
 
 

@@ -4,12 +4,23 @@ import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.lixin.BaseActivity;
 import com.lixin.live.R;
+import com.lixin.utils.Utils;
+import com.lixin.widget.MyLinearLayoutManager;
+import com.mob.tools.utils.Hashon;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,6 +43,14 @@ public class CookDetailActivity extends BaseActivity implements AppBarLayout.OnO
     TextView cookSumary;
     @BindView(R.id.cook_title)
     TextView cookTitle;
+    @BindView(R.id.cook_ingredients_title)
+    TextView cookIngredientsTitle;
+    @BindView(R.id.cook_ingredients)
+    TextView cookIngredients;
+    @BindView(R.id.cook_method_title)
+    TextView cookMethodTitle;
+    @BindView(R.id.cook_method_recyclerview)
+    RecyclerView cookMethodRecyclerview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +74,10 @@ public class CookDetailActivity extends BaseActivity implements AppBarLayout.OnO
             acCookImage.setImageURI(bean.getThumbnail());
             collapsingToolbar.setTitle(bean.getName());
             toolbar.setTitle(bean.getName());
-
             cookSumary.setText(bean.getRecipe().getSumary());
             cookTitle.setText(bean.getRecipe().getTitle());
+            initCookIngredients(bean);
+            initMethod(bean);
         }
         toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.text_grey));
         toolbar.setSubtitleTextColor(ContextCompat.getColor(this, R.color.text_grey));
@@ -75,6 +95,43 @@ public class CookDetailActivity extends BaseActivity implements AppBarLayout.OnO
 
         setUpCommonBackTooblBar(R.id.toolbar, "");
 
+    }
+
+    private void initMethod(CookListBean.ResultBean.ListBean bean) {
+        if (Utils.stringIsNotEmpty(bean.getRecipe().getMethod())) {
+            CookMethodRes cookMethodBean = null;
+            Gson gson = new Gson();
+            Type type = new TypeToken<CookMethodRes>() {
+            }.getType();
+            cookMethodBean = gson.fromJson("{\"methods\":" + bean.getRecipe().getMethod() + "}", type);
+//
+            cookMethodRecyclerview.setLayoutManager(new MyLinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+            cookMethodRecyclerview.setFocusable(false);
+            cookMethodRecyclerview.setNestedScrollingEnabled(false);
+            cookMethodRecyclerview.setAdapter(new CookMethodAdapter(this,cookMethodBean.getMethods()));
+
+        } else {
+           cookMethodTitle.setVisibility(View.GONE);
+            cookMethodRecyclerview.setVisibility(View.GONE);
+        }
+    }
+
+    private void initCookIngredients(CookListBean.ResultBean.ListBean bean) {
+        if (Utils.stringIsNotEmpty(bean.getRecipe().getIngredients())) {
+            Hashon hashon = new Hashon();
+            ArrayList<String> ingredients = (ArrayList<String>) hashon.fromJson("{\"list\":" + bean.getRecipe().getIngredients() + "}").get("list");
+            StringBuilder sb = new StringBuilder();
+            if (ingredients != null) {
+                for (String i : ingredients) {
+                    sb.append('\n').append(i + "");
+                }
+                sb.deleteCharAt(0);
+            }
+            cookIngredients.setText(sb.toString());
+        } else {
+            cookIngredientsTitle.setVisibility(View.GONE);
+            cookIngredients.setVisibility(View.GONE);
+        }
     }
 
     @Override
