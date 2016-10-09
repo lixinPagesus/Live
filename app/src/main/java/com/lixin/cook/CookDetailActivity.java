@@ -1,13 +1,17 @@
 package com.lixin.cook;
 
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -60,6 +64,7 @@ public class CookDetailActivity extends BaseActivity implements AppBarLayout.OnO
         getIntentData();
         initUI();
 
+
     }
 
     private void getIntentData() {
@@ -70,15 +75,7 @@ public class CookDetailActivity extends BaseActivity implements AppBarLayout.OnO
 
     private void initUI() {
 
-        if (bean != null) {
-            acCookImage.setImageURI(bean.getThumbnail());
-            collapsingToolbar.setTitle(bean.getName());
-            toolbar.setTitle(bean.getName());
-            cookSumary.setText(bean.getRecipe().getSumary());
-            cookTitle.setText(bean.getRecipe().getTitle());
-            initCookIngredients(bean);
-            initMethod(bean);
-        }
+
         toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.text_grey));
         toolbar.setSubtitleTextColor(ContextCompat.getColor(this, R.color.text_grey));
         collapsingToolbar.setCollapsedTitleTextColor(ContextCompat.getColor(this, R.color.text_grey));
@@ -92,8 +89,17 @@ public class CookDetailActivity extends BaseActivity implements AppBarLayout.OnO
 //        params.height = ConstantLive.NaviBarHeight;
 //        toolbar.setLayoutParams(params);
 
-
         setUpCommonBackTooblBar(R.id.toolbar, "");
+
+        if (bean != null) {
+            acCookImage.setImageURI(bean.getThumbnail());
+            collapsingToolbar.setTitle(bean.getName());
+            toolbar.setTitle(bean.getName());
+            cookSumary.setText(bean.getRecipe().getSumary());
+            cookTitle.setText(bean.getRecipe().getTitle());
+            initCookIngredients(bean);
+            initMethod(bean);
+        }
 
     }
 
@@ -104,15 +110,40 @@ public class CookDetailActivity extends BaseActivity implements AppBarLayout.OnO
             Type type = new TypeToken<CookMethodRes>() {
             }.getType();
             cookMethodBean = gson.fromJson("{\"methods\":" + bean.getRecipe().getMethod() + "}", type);
-//
+
             cookMethodRecyclerview.setLayoutManager(new MyLinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
             cookMethodRecyclerview.setFocusable(false);
             cookMethodRecyclerview.setNestedScrollingEnabled(false);
-            cookMethodRecyclerview.setAdapter(new CookMethodAdapter(this,cookMethodBean.getMethods()));
+//            SpacesItemDecoration decoration = new SpacesItemDecoration(16);
+//            cookMethodRecyclerview.addItemDecoration(decoration);
+
+            cookMethodRecyclerview.setAdapter(new CookMethodAdapter(this, cookMethodBean.getMethods()));
+
+
 
         } else {
-           cookMethodTitle.setVisibility(View.GONE);
+            cookMethodTitle.setVisibility(View.GONE);
             cookMethodRecyclerview.setVisibility(View.GONE);
+        }
+    }
+
+
+
+    public class SpacesItemDecoration extends RecyclerView.ItemDecoration {
+        private int space;
+
+        public SpacesItemDecoration(int space) {
+            this.space = space;
+        }
+
+        @Override
+        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+            outRect.left = space;
+            outRect.right = space;
+            outRect.bottom = space;
+            if (parent.getChildAdapterPosition(view) == 0) {
+                outRect.top = space;
+            }
         }
     }
 

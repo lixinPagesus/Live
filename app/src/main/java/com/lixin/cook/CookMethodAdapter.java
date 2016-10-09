@@ -53,7 +53,7 @@ public class CookMethodAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             viewHolder.itemCookmethodIv.setVisibility(View.VISIBLE);
             viewHolder.itemCookmethodIv.setImageURI(img);
         }else{
-//            viewHolder.itemCookmethodIv.setVisibility(View.GONE);
+            viewHolder.itemCookmethodIv.setVisibility(View.GONE);
         }
 
         viewHolder.itemCookmethodTitle.setText(methods.get(position).getStep());
